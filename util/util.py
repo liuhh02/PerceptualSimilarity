@@ -36,13 +36,13 @@ def mkdir(path):
         os.makedirs(path)
 
 
-def tensor2im(image_tensor, imtype=np.uint8, cent=1., factor=255./2.):
+def tensor2im(image_tensor, imtype=np.float32, cent=1., factor=4.771497/2.):
 # def tensor2im(image_tensor, imtype=np.uint8, cent=1., factor=1.):
     image_numpy = image_tensor[0].cpu().float().numpy()
     image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + cent) * factor
     return image_numpy.astype(imtype)
 
-def im2tensor(image, imtype=np.uint8, cent=1., factor=255./2.):
+def im2tensor(image, imtype=np.float32, cent=1., factor=4.771497/2.):
 # def im2tensor(image, imtype=np.uint8, cent=1., factor=1.):
     return torch.Tensor((image / factor - cent)
                         [:, :, :, np.newaxis].transpose((3, 2, 0, 1)))
